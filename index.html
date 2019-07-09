@@ -43,13 +43,13 @@
                     "1": {
                         "title": "First Scene",
                         "type": "equirectangular",
-                        "panorama": mobile ? "https://pascal-the-elf.github.io/Project-H5/360/1_low.jpg" : "https://pascal-the-elf.github.io/Project-H5/360/1_high.jpg"
+                        "panorama": pic360(1)
                     },
                     
                     "2": {
                         "title": "Second Scene",
                         "type": "equirectangular",
-                        "panorama": mobile ? "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/FatuIva_TropicalRainForest_20061111.jpg/1280px-FatuIva_TropicalRainForest_20061111.jpg" : "https://upload.wikimedia.org/wikipedia/commons/6/62/FatuIva_TropicalRainForest_20061111.jpg"
+                        "panorama": pic360(2)
                     }
                 }
             };
@@ -59,7 +59,9 @@
             viewer.loadScene(x);
             oneperson.style.zIndex = "2";
         }
-        
+        function pic360(x) {
+            return (mobile ? "https://pascal-the-elf.github.io/Project-H5/360/"+x+"_low.jpg" : "https://pascal-the-elf.github.io/Project-H5/360/"+x+"_high.jpg");
+        }
         </script>
     </body>
 </html>
