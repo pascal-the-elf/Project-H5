@@ -4,9 +4,20 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>TEST</title>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.pannellum.org/2.4/pannellum.css"/>
         <script type="text/javascript" src="https://cdn.pannellum.org/2.4/pannellum.js"></script>
         <style>
+            body {
+                font-family: 'Amatic SC', cursive;
+            }
+            h1 {
+                font-family: 'Amatic SC', cursive;
+            }
+            .show {
+                z-index: 5;
+            }
             #screen {
                 background-color: white;
                 width: 100%;
@@ -23,9 +34,31 @@
                 top: 0;
                 left: 0;
             }
+            #container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                z-index: 5;
+            }
+            #image {
+                width: 100%;
+                height: 100%;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 2;
+            }
         </style>
     </head>
     <body>
+        <img id="image" src="https://i.ytimg.com/vi/AtGTot98UAo/maxresdefault.jpg"></img>
+        <div id="container">
+            <div class="w3-center show">
+                <h1 style="position: relative; bottom: 2rem; font-size: 5rem; letter-spacing: 8px;">Illusion</h1>
+                <button class="w3-button w3-round-large" style="font-size: 2rem; letter-spacing: 8px;" onclick="gameStart();">START</button>
+            </div>
+        </div>
         <div id="screen"></div>
         <div id="panorama"></div>
         <script>
@@ -61,6 +94,9 @@
         }
         function pic360(x) {
             return (mobile ? "https://pascal-the-elf.github.io/Project-H5/360/"+x+"_low.jpg" : "https://pascal-the-elf.github.io/Project-H5/360/"+x+"_high.jpg");
+        }
+        function gameStart() {
+            
         }
         </script>
     </body>
