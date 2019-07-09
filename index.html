@@ -96,7 +96,9 @@
             return (mobile ? "https://pascal-the-elf.github.io/Project-H5/360/"+x+"_low.jpg" : "https://pascal-the-elf.github.io/Project-H5/360/"+x+"_high.jpg");
         }
         function gameStart() {
-            
+            document.getElementById("image").style.display = "none";
+            document.getElementById("container").style.display = "none";
+            sceneTo(1);
         }
         </script>
     </body>
