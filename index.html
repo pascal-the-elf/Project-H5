@@ -5,51 +5,52 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>TEST</title>
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdn.pannellum.org/2.4/pannellum.css"/>
-        <script type="text/javascript" src="https://cdn.pannellum.org/2.4/pannellum.js"></script>
-        <style>
-            body {
-                font-family: 'Amatic SC', cursive;
-            }
-            h1 {
-                font-family: 'Amatic SC', cursive;
-            }
-            .show {
-                z-index: 5;
-            }
-            #screen {
-                background-color: white;
-                width: 100%;
-                height: 100%;
-                position: fixed;
-                top: 0;
-                left: 0;
-                z-index: 0;
-            }
-            #panorama {
-                width: 100%;
-                height: 100%;
-                position: fixed;
-                top: 0;
-                left: 0;
-            }
-            #container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                z-index: 5;
-            }
-            #image {
-                width: 100%;
-                height: 100%;
-                position: fixed;
-                top: 0;
-                left: 0;
-                z-index: 2;
-            }
-        </style>
+            <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700&display=swap" rel="stylesheet">
+                <link rel="stylesheet" href="https://cdn.pannellum.org/2.4/pannellum.css"/>
+                <script type="text/javascript" src="https://cdn.pannellum.org/2.4/pannellum.js></script>
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8></script>
+                <style>
+                    body {
+                        font-family: 'Amatic SC', cursive;
+                    }
+                h1 {
+                    font-family: 'Amatic SC', cursive;
+                }
+                .show {
+                    z-index: 5;
+                }
+                #screen {
+                    background-color: white;
+                    width: 100%;
+                    height: 100%;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    z-index: 0;
+                }
+                #panorama {
+                    width: 100%;
+                    height: 100%;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                }
+                #container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    z-index: 5;
+                }
+                #image {
+                    width: 100%;
+                    height: 100%;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    z-index: 2;
+                }
+                </style>
     </head>
     <body>
         <img id="image" src="https://i.ytimg.com/vi/AtGTot98UAo/maxresdefault.jpg"></img>
@@ -65,27 +66,75 @@
             const oneperson = document.getElementById("panorama");
             oneperson.style.zIndex = "-1";
             var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            var SCENES = {
-                "default": {
-                    "firstScene": "1",
-                    "showControls": false,
-                    "autoLoad": true
-                },
-                
-                "scenes": {
-                    "1": {
-                        "title": "First Scene",
-                        "type": "equirectangular",
-                        "panorama": pic360(1)
-                    },
-                    
-                    "2": {
-                        "title": "Second Scene",
-                        "type": "equirectangular",
-                        "panorama": pic360(2)
-                    }
-                }
-            };
+            var ITEMS = [
+                         {
+                         "title": "一張被油墨弄髒的紙",
+                         "content": "<img src="http://sc-dr.tw/news/104/10/10220104.jpg"></img>"
+                         }
+                         ];
+                         var SCENES = {
+                             "default": {
+                                 "firstScene": "1",
+                                 "showControls": false,
+                                 "autoLoad": true
+                             },
+                             
+                             "scenes": {
+                                 "1": {
+                                     "title": "小木屋房內",
+                                     "type": "equirectangular",
+                                     "panorama": pic360(1),
+                                     "hotSpots": [
+                                                  {
+                                                  "pitch": -23,
+                                                  "yaw": -44,
+                                                  "type": "info",
+                                                  "text": "一張被油墨弄髒的紙",
+                                                  "URL": "javascript:showItem(1)"
+                                                  },
+                                                  {
+                                                  "pitch": -9.4,
+                                                  "yaw": 222.6,
+                                                  "type": "info",
+                                                  "text": "Art Museum Drive"
+                                                  },
+                                                  {
+                                                  "pitch": -0.9,
+                                                  "yaw": 144.4,
+                                                  "type": "info",
+                                                  "text": "North Charles Street"
+                                                  }
+                                                  ]
+                                 },
+                                 
+                                 "2": {
+                                     "title": "小木屋外",
+                                     "type": "equirectangular",
+                                     "panorama": pic360(2),
+                                     "hotSpots": [
+                                                  {
+                                                  "pitch": 14.1,
+                                                  "yaw": 1.5,
+                                                  "type": "info",
+                                                  "text": "Baltimore Museum of Art",
+                                                  "URL": "javascript:showItem(2)"
+                                                  },
+                                                  {
+                                                  "pitch": -9.4,
+                                                  "yaw": 222.6,
+                                                  "type": "info",
+                                                  "text": "Art Museum Drive"
+                                                  },
+                                                  {
+                                                  "pitch": -0.9,
+                                                  "yaw": 144.4,
+                                                  "type": "info",
+                                                  "text": "North Charles Street"
+                                                  }
+                                                  ]
+                                 }
+                             }
+                         };
         var viewer = pannellum.viewer("panorama", SCENES);
         
         function sceneTo(x) {
@@ -100,8 +149,13 @@
             document.getElementById("container").style.display = "none";
             sceneTo(1);
         }
+        function showItem(x) {
+            Swal.fire(
+                      ITEMS[x-1].title,
+                      ITEMS[x-1].content,
+                      'info'
+                      );
+        }
         </script>
     </body>
 </html>
-
-
