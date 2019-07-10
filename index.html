@@ -193,16 +193,14 @@
                                                   "yaw": 20,
                                                   "type": "scene",
                                                   "text": "往此處走",
-                                                  "sceneId": "3"
+                                                  "URL": "javascript:sceneTo(3)"
                                                   },
                                                   {
                                                   "pitch": 4,
                                                   "yaw": -62,
                                                   "type": "scene",
                                                   "text": "進入小木屋",
-                                                  "sceneId": "1",
-                                                  "targetPitch": -23,
-                                                  "targetYaw": -44
+                                                  "URL": "javascript:sceneTo(1, -23, -44)"
                                                   }
                                                   ]
                                  },
@@ -217,15 +215,14 @@
                                                   "type": "scene",
                                                   "text": "往小木屋方向走",
                                                   "sceneId": "2",
-                                                  "targetPitch": 4,
-                                                  "targetYaw": -62
+                                                  "URL": "javascript:sceneTo(2, 4, -62)"
                                                   },
                                                   {
                                                   "pitch": -5,
                                                   "yaw": -97,
                                                   "type": "scene",
                                                   "text": "往森林深處走",
-                                                  "sceneId": "4"
+                                                  "URL": "javascript:sceneTo(4)"
                                                   }
                                                   ]
                                  },
@@ -239,7 +236,7 @@
                                                   "yaw": 90,
                                                   "type": "scene",
                                                   "text": "往步道方向走",
-                                                  "sceneId": "3"
+                                                  "URL": "javascript:sceneTo(3)"
                                                   }
                                                   ]
                                  }
@@ -248,10 +245,14 @@
         var viewer = pannellum.viewer("panorama", SCENES);
         
         function sceneTo(x, p=0, y=0) {
-            viewer.loadScene(x);
-            viewer.setPitch(p, 0);
-            viewer.setYaw(y, 0);
-            oneperson.style.zIndex = "2";
+            fadeOut();
+            setTimeout(()=>{
+                       viewer.loadScene(x);
+                       viewer.setPitch(p, 0);
+                       viewer.setYaw(y, 0);
+                       oneperson.style.zIndex = "2";
+                       }, 750);
+                       setTimeout(()=>{fadeIn()}, 2500);
         }
         function pic360(x) {
             return (mobile ? "https://pascal-the-elf.github.io/Project-H5/360/"+x+"_low.jpg" : "https://pascal-the-elf.github.io/Project-H5/360/"+x+"_high.jpg");
@@ -279,7 +280,7 @@
         }
         function canLeaveHouse() {
             if(CHECKPOINT >= 2)
-            viewer.addHotSpot({"pitch": -8,"yaw": 180,"type": "scene","text": "離開小木屋","URL": "javascript:if(CHECKPOINT>0) {fadeOut();sceneTo(2, 4, -62);setTimeout(()=>{fadeIn()}, 1500);}"});
+            viewer.addHotSpot({"pitch": -8,"yaw": 180,"type": "scene","text": "離開小木屋","URL": "javascript:if(CHECKPOINT>0) {sceneTo(2, 4, -62);}"});
         }
         function getBook() {
             document.getElementById("book").style.display = "block";
