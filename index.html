@@ -155,7 +155,7 @@
                 </style>
     </head>
     <body>
-        <audio src="res/bgm.mp3" autoplay loop style="display: none;"></audio>
+        <audio src="./res/bgm.mp3" autoplay loop style="display: none;"></audio>
         <p id="text-loading"></p>
         <div id="FADE" class=""></div>
         <img id="image" src="https://i.ytimg.com/vi/AtGTot98UAo/maxresdefault.jpg"></img>
@@ -392,10 +392,10 @@
                                               }
         function startFinding() {
             forceTEXT = 1;
-            sendText("接下來該怎麼辦...");
+            setTimeout(()=>{sendText("接下來該怎麼辦...");}, 2000);
             forceTEXT = 0;
-            setTimeout(()=>{sendText("來看看手冊好了")}, 3000);
-            setTimeout(()=>{Swal.fire("查看手冊中的「傳說故事」")}, 5000);
+            setTimeout(()=>{sendText("來看看手冊好了")}, 5000);
+            setTimeout(()=>{Swal.fire("查看手冊中的「傳說故事」")}, 8000);
             
         }
         </script>
