@@ -57,9 +57,66 @@
             right: 10px;
             display: none;
         }
+        #dialog {
+            z-index: 10;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: calc(100vw - 20px);
+            height: 3rem;
+            margin: 10px;
+            line-height: 2rem;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none;
+            color: white;
+            font-size: 2rem;
+        }
+        #dialog > span {
+            position: relative;
+            top: 0.5rem;
+            left: 1rem;
+        }
+        #FADE {
+            z-index: 9999;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100vw;
+            background-color: rgba(0, 0, 0, 1);
+        }
+        .fade-out {
+            display: block;
+            animation-name: ani-fade-out;
+            animation-duration: 1.5s;
+            animation-fill-mode: forwards;
+        }
+        .fade-in {
+            animation-name: ani-fade-in;
+            animation-duration: 1.5s;
+            animation-fill-mode: forwards;
+        }
+        @keyframes ani-fade-out {
+            from {
+                background-color: rgba(0, 0, 0, 0);
+            }
+            to {
+                background-color: rgba(0, 0, 0, 1);
+            }
+        }
+        @keyframes ani-fade-in {
+            from {
+                background-color: rgba(0, 0, 0, 1);
+            }
+            to {
+                display: none !important;
+                background-color: rgba(0, 0, 0, 0);
+            }
+        }
         </style>
     </head>
     <body>
+        <div id="FADE" class=""></div>
         <img id="image" src="https://i.ytimg.com/vi/AtGTot98UAo/maxresdefault.jpg"></img>
         <div id="container">
             <div class="w3-center show">
@@ -72,10 +129,15 @@
         <div id="book" onclick="showItem(2)">
             <i class="fas fa-book fa-5x w3-text-blue"></i>
         </div>
+        <div id="dialog">
+            <span></span>
+        </div>
         <script type="text/javascript" src="https://cdn.pannellum.org/2.4/pannellum.js" onload="setTimeout(()=>{document.getElementById('start').style.display = ''}, 2000)"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8" async></script>
         <script>
             var BOOOOOOOK = 0;
+            const fade = document.getElementById("FADE");
+            fadeIn();
             const oneperson = document.getElementById("panorama");
             oneperson.style.zIndex = "-1";
             var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -165,7 +227,7 @@
                                                   "text": "往森林深處走",
                                                   "sceneId": "4"
                                                   }
-                                     ]
+                                                  ]
                                  },
                                  "4": {
                                      "title": "森林深處",
@@ -179,7 +241,7 @@
                                                   "text": "往步道方向走",
                                                   "sceneId": "3"
                                                   }
-                                     ]
+                                                  ]
                                  }
                              }
                          };
@@ -195,9 +257,13 @@
             return (mobile ? "https://pascal-the-elf.github.io/Project-H5/360/"+x+"_low.jpg" : "https://pascal-the-elf.github.io/Project-H5/360/"+x+"_high.jpg");
         }
         function gameStart() {
-            document.getElementById("image").style.display = "none";
-            document.getElementById("container").style.display = "none";
-            sceneTo(1);
+            fadeOut();
+            setTimeout(()=>{
+                       document.getElementById("image").style.display = "none";
+                       document.getElementById("container").style.display = "none";
+                       sceneTo(1);
+                       fadeIn();
+                       }, 1500);
         }
         function showItem(x) {
             Swal.fire(
@@ -213,13 +279,23 @@
         }
         function canLeaveHouse() {
             if(CHECKPOINT >= 2)
-            viewer.addHotSpot({"pitch": -8,"yaw": 180,"type": "scene","text": "離開小木屋","URL": "javascript:if(CHECKPOINT>0) sceneTo(2, 4, -62);"});
+            viewer.addHotSpot({"pitch": -8,"yaw": 180,"type": "scene","text": "離開小木屋","URL": "javascript:if(CHECKPOINT>0) {fadeOut();sceneTo(2, 4, -62);setTimeout(()=>{fadeIn()}, 1500);}"});
         }
         function getBook() {
             document.getElementById("book").style.display = "block";
             if(!BOOOOOOOK)
             Swal.fire("現在可以從右下角查看旅遊手冊");
             window.BOOOOOOOK = 1;
+        }
+        function fadeIn() {
+            fade.classList.remove("fade-out");
+            fade.classList.add("fade-in");
+            setTimeout(()=>{fade.style.display = "none"}, 1500);
+        }
+        function fadeOut() {
+            fade.style.display = "";
+            fade.classList.remove("fade-in");
+            fade.classList.add("fade-out");
         }
         </script>
     </body>
