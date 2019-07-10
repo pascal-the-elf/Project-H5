@@ -56,6 +56,15 @@
             bottom: 10px;
             right: 10px;
             display: none;
+            cursor: pointer;
+        }
+        #orientation {
+            z-index: 10;
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            display: none;
+            cursor: pointer;
         }
         #dialog {
             z-index: 10;
@@ -129,13 +138,16 @@
         <div id="book" onclick="showItem(2)">
             <i class="fas fa-book fa-5x w3-text-blue"></i>
         </div>
+        <div id="orientation" onclick="toggleOrientation()">
+            <i class="fas fa-mobile-alt fa-5x w3-text-green"></i>
+        </div>
         <div id="dialog">
             <span></span>
         </div>
         <script type="text/javascript" src="https://cdn.pannellum.org/2.4/pannellum.js" onload="setTimeout(()=>{document.getElementById('start').style.display = ''}, 2000)"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8" async></script>
         <script>
-            var BOOOOOOOK = 0;
+            var BOOOOOOOK = 0, orientation = true;
             const fade = document.getElementById("FADE");
             fadeIn();
             const oneperson = document.getElementById("panorama");
@@ -245,8 +257,11 @@
         var viewer = pannellum.viewer("panorama", SCENES);
         viewer.on("load",()=>{
                   fadeIn();
-                  if(viewer.isOrientationSupported())
+                  if(viewer.isOrientationSupported()) {
+                  document.getElementById("orientation").style.display = "block";
+                  if(orientation)
                   viewer.startOrientation();
+                  }
                   });
                   function sceneTo(x, p=0, y=0) {
                       fadeOut();
@@ -282,6 +297,7 @@
             viewer.addHotSpot({"pitch": -8,"yaw": 180,"type": "scene","text": "離開小木屋","URL": "javascript:if(CHECKPOINT>0) {sceneTo(2, 4, -62);}"});
         }
         function getBook() {
+            document.getElementById("orientation").style.right = "calc(10px + 5rem)";
             document.getElementById("book").style.display = "block";
             if(!BOOOOOOOK)
             Swal.fire("現在可以從右下角查看旅遊手冊");
@@ -296,6 +312,15 @@
             fade.style.display = "";
             fade.classList.remove("fade-in");
             fade.classList.add("fade-out");
+        }
+        function toggleOrientation() {
+            if(orientation) {
+                orientation = false;
+                viewer.stopOrientation();
+            } else {
+                orientation = true;
+                viewer.startOrientation();
+            }
         }
         </script>
     </body>
