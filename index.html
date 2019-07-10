@@ -7,8 +7,6 @@
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
             <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700&display=swap" rel="stylesheet">
                 <link rel="stylesheet" href="https://cdn.pannellum.org/2.4/pannellum.css"/>
-                <script type="text/javascript" src="https://cdn.pannellum.org/2.4/pannellum.js></script>
-                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8></script>
                 <style>
                     body {
                         font-family: 'Amatic SC', cursive;
@@ -34,6 +32,7 @@
                     position: fixed;
                     top: 0;
                     left: 0;
+                    filter: brightness(.7) grayscale(.6) saturate(.6);
                 }
                 #container {
                     display: flex;
@@ -53,6 +52,9 @@
                 </style>
     </head>
     <body>
+        <div style="z-index: 100; height: 100vh; width: 100vw; background-color: white; position: fixed; display: none; justify-content: center; align-items: center;" id="preshow">
+            <svg id="loading" width="200px" height="200px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-dual-ring"><circle cx="50" cy="50" ng-attr-r="{{config.radius}}" ng-attr-stroke-width="{{config.width}}" ng-attr-stroke="{{config.stroke}}" ng-attr-stroke-dasharray="{{config.dasharray}}" fill="none" stroke-linecap="round" r="30" stroke-width="8" stroke="#93dbe9" stroke-dasharray="47.12388980384689 47.12388980384689" transform="rotate(29.682 50 50)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;360 50 50" keyTimes="0;1" dur="0.6s" begin="0s" repeatCount="indefinite"></animateTransform></circle></svg>
+        </div>
         <img id="image" src="https://i.ytimg.com/vi/AtGTot98UAo/maxresdefault.jpg"></img>
         <div id="container">
             <div class="w3-center show">
@@ -62,6 +64,8 @@
         </div>
         <div id="screen"></div>
         <div id="panorama"></div>
+        <script type="text/javascript" src="https://cdn.pannellum.org/2.4/pannellum.js" onload="document.getElementById('preshow').style.display = 'none';"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8" async></script>
         <script>
             const oneperson = document.getElementById("panorama");
             oneperson.style.zIndex = "-1";
@@ -69,7 +73,7 @@
             var ITEMS = [
                          {
                          "title": "一張被油墨弄髒的紙",
-                         "content": '<img src="http://sc-dr.tw/news/104/10/10220104.jpg"></img>'
+                         "content": '<img src="http://sc-dr.tw/news/104/10/10220104.jpg" style="max-width: 100%;"></img>'
                          }
                          ];
                          var SCENES = {
@@ -93,16 +97,11 @@
                                                   "URL": "javascript:showItem(1)"
                                                   },
                                                   {
-                                                  "pitch": -9.4,
-                                                  "yaw": 222.6,
-                                                  "type": "info",
-                                                  "text": "Art Museum Drive"
-                                                  },
-                                                  {
-                                                  "pitch": -0.9,
-                                                  "yaw": 144.4,
-                                                  "type": "info",
-                                                  "text": "North Charles Street"
+                                                  "pitch": -8,
+                                                  "yaw": 180,
+                                                  "type": "scene",
+                                                  "text": "離開小木屋",
+                                                  "sceneId": "2"
                                                   }
                                                   ]
                                  },
@@ -113,23 +112,18 @@
                                      "panorama": pic360(2),
                                      "hotSpots": [
                                                   {
-                                                  "pitch": 14.1,
-                                                  "yaw": 1.5,
-                                                  "type": "info",
-                                                  "text": "Baltimore Museum of Art",
-                                                  "URL": "javascript:showItem(2)"
+                                                  "pitch": 2,
+                                                  "yaw": 20,
+                                                  "type": "scene",
+                                                  "text": "往此處走",
+                                                  "sceneId": "3"
                                                   },
                                                   {
-                                                  "pitch": -9.4,
-                                                  "yaw": 222.6,
-                                                  "type": "info",
-                                                  "text": "Art Museum Drive"
-                                                  },
-                                                  {
-                                                  "pitch": -0.9,
-                                                  "yaw": 144.4,
-                                                  "type": "info",
-                                                  "text": "North Charles Street"
+                                                  "pitch": 4,
+                                                  "yaw": -62,
+                                                  "type": "scene",
+                                                  "text": "進入小木屋",
+                                                  "sceneId": "1"
                                                   }
                                                   ]
                                  }
@@ -152,8 +146,7 @@
         function showItem(x) {
             Swal.fire(
                       ITEMS[x-1].title,
-                      ITEMS[x-1].content,
-                      'info'
+                      ITEMS[x-1].content
                       );
         }
         </script>
