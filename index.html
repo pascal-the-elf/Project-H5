@@ -152,9 +152,30 @@
                         content: "oooO";
                     }
                 }
+                
+                iframe#rpg1 {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    height: 100%;
+                    border: 0;
+                    z-index: -100;
+                }
+                iframe#rpg2 {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    height: 100%;
+                    border: 0;
+                    z-index: -100;
+                }
                 </style>
     </head>
     <body>
+        <iframe id="rpg1" src="https://pascal-the-elf.github.io/Project-H5/rpg/1/"></iframe>
+        <iframe id="rpg2" src="https://pascal-the-elf.github.io/Project-H5/rpg/2/"></iframe>
         <audio src="./res/bgm.mp3" autoplay loop style="display: none;"></audio>
         <p id="text-loading"></p>
         <div id="FADE" class=""></div>
@@ -320,9 +341,9 @@
             document.getElementById("container").style.display = "none";
             sceneTo(1);
             window.forceTEXT = 1;
-            setTimeout(()=>{sendText("我在哪？")}, 1000);
-            setTimeout(()=>{sendText("我怎麼會在這裡？")}, 4000);
-            setTimeout(()=>{sendText("喔～頭好痛～")}, 7000);
+            setTimeout(()=>{sendText("喔～頭好痛～")}, 1000);
+            setTimeout(()=>{sendText("我在哪？")}, 4000);
+            setTimeout(()=>{sendText("我怎麼會在這裡？")}, 7000);
             forceTEXT = 0;
             setTimeout(()=>{sendText("這裡有什麼？")}, 10000);
             setTimeout(()=>{Swal.fire("請四處觀察房間物品")}, 12000);
@@ -392,10 +413,10 @@
                                               }
         function startFinding() {
             forceTEXT = 1;
-            setTimeout(()=>{sendText("接下來該怎麼辦...");}, 2000);
+            setTimeout(()=>{sendText("接下來該怎麼辦...");}, 3000);
             forceTEXT = 0;
-            setTimeout(()=>{sendText("來看看手冊好了")}, 5000);
-            setTimeout(()=>{Swal.fire("查看手冊中的「傳說故事」")}, 8000);
+            setTimeout(()=>{sendText("來看看手冊好了")}, 6000);
+            setTimeout(()=>{Swal.fire("查看手冊中的「傳說故事」")}, 9000);
             
         }
         </script>
