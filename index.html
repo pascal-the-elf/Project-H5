@@ -292,7 +292,7 @@
                                      };
         var viewer = pannellum.viewer("panorama", SCENES);
         viewer.on("load",()=>{
-                  document.getElementById("text-loading").display = "none";
+                  document.getElementById("text-loading").style.display = "none";
                   fadeIn();
                   if(viewer.isOrientationSupported()) {
                   document.getElementById("orientation").style.display = "block";
@@ -303,7 +303,7 @@
                   function sceneTo(x, p=0, y=0) {
                       fadeOut();
                       setTimeout(()=>{
-                                 document.getElementById("text-loading").display = "block";
+                                 document.getElementById("text-loading").style.display = "block";
                                  viewer.loadScene(x);
                                  viewer.setPitch(p, 0);
                                  viewer.setYaw(y, 0);
