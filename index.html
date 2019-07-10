@@ -138,7 +138,7 @@
         <div id="book" onclick="showItem(2)">
             <i class="fas fa-book fa-5x w3-text-blue"></i>
         </div>
-        <div id="orientation" onclick="toggleOrientation()">
+        <div id="orientation" onclick="toggleOrientation()" class="w3-text-green">
             <i class="fas fa-mobile-alt fa-5x"></i>
         </div>
         <div id="dialog">
@@ -326,6 +326,16 @@
                 document.getElementById("orientation").classList.remove("w3-text-light-gray");
             }
         }
-        </script>
+        setInterval(()=>{
+                    if(viewer.isOrientationActive()) {
+                    document.getElementById("orientation").style.display = "block";
+                    orientation = false;
+                    toggleOrientation();
+                    } else {
+                    orientation = true;
+                    toggleOrientation();
+                    }
+                    }, 500);
+            </script>
     </body>
 </html>
