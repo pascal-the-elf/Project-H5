@@ -52,24 +52,22 @@
                 </style>
     </head>
     <body>
-        <div style="z-index: 100; height: 100vh; width: 100vw; background-color: white; position: fixed; display: none; justify-content: center; align-items: center;" id="preshow">
-            <svg id="loading" width="200px" height="200px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-dual-ring"><circle cx="50" cy="50" ng-attr-r="{{config.radius}}" ng-attr-stroke-width="{{config.width}}" ng-attr-stroke="{{config.stroke}}" ng-attr-stroke-dasharray="{{config.dasharray}}" fill="none" stroke-linecap="round" r="30" stroke-width="8" stroke="#93dbe9" stroke-dasharray="47.12388980384689 47.12388980384689" transform="rotate(29.682 50 50)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;360 50 50" keyTimes="0;1" dur="0.6s" begin="0s" repeatCount="indefinite"></animateTransform></circle></svg>
-        </div>
         <img id="image" src="https://i.ytimg.com/vi/AtGTot98UAo/maxresdefault.jpg"></img>
         <div id="container">
             <div class="w3-center show">
                 <h1 style="position: relative; bottom: 2rem; font-size: 5rem; letter-spacing: 8px;">Illusion</h1>
-                <button class="w3-button w3-round-large" style="font-size: 2rem; letter-spacing: 8px;" onclick="gameStart();">START</button>
+                <button id="start" class="w3-button w3-round-large" style="font-size: 2rem; letter-spacing: 8px; display: none" onclick="gameStart();">START</button>
             </div>
         </div>
         <div id="screen"></div>
         <div id="panorama"></div>
-        <script type="text/javascript" src="https://cdn.pannellum.org/2.4/pannellum.js" onload="document.getElementById('preshow').style.display = 'none';"></script>
+        <script type="text/javascript" src="https://cdn.pannellum.org/2.4/pannellum.js" onload="document.getElementById('start').style.display = '';"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8" async></script>
         <script>
             const oneperson = document.getElementById("panorama");
             oneperson.style.zIndex = "-1";
             var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            var CHECKPOINT = 0;
             var ITEMS = [
                          {
                          "title": "一張被油墨弄髒的紙",
@@ -88,20 +86,15 @@
                                      "title": "小木屋房內",
                                      "type": "equirectangular",
                                      "panorama": pic360(1),
+                                     "pitch": -23,
+                                     "yaw": -44,
                                      "hotSpots": [
                                                   {
                                                   "pitch": -23,
                                                   "yaw": -44,
                                                   "type": "info",
                                                   "text": "一張被油墨弄髒的紙",
-                                                  "URL": "javascript:showItem(1)"
-                                                  },
-                                                  {
-                                                  "pitch": -8,
-                                                  "yaw": 180,
-                                                  "type": "scene",
-                                                  "text": "離開小木屋",
-                                                  "sceneId": "2"
+                                                  "URL": 'javascript:showItem(1);updateCP(1);viewer.addHotSpot({"pitch": -8,"yaw": 180,"type": "scene","text": "離開小木屋","URL": "javascript:if(CHECKPOINT>0) sceneTo(2, 4, -62); else Swal.fire(\'你好像漏掉了什麼？\');"});'
                                                   }
                                                   ]
                                  },
@@ -123,7 +116,9 @@
                                                   "yaw": -62,
                                                   "type": "scene",
                                                   "text": "進入小木屋",
-                                                  "sceneId": "1"
+                                                  "sceneId": "1",
+                                                  "targetPitch": -23,
+                                                  "targetYaw": -44
                                                   }
                                                   ]
                                  }
@@ -131,8 +126,10 @@
                          };
         var viewer = pannellum.viewer("panorama", SCENES);
         
-        function sceneTo(x) {
+        function sceneTo(x, p=0, y=0) {
             viewer.loadScene(x);
+            viewer.setPitch(p, 0);
+            viewer.setYaw(y, 0);
             oneperson.style.zIndex = "2";
         }
         function pic360(x) {
@@ -148,6 +145,9 @@
                       ITEMS[x-1].title,
                       ITEMS[x-1].content
                       );
+        }
+        function updateCP(x) {
+            if(x > CHECKPOINT) CHECKPOINT = x;
         }
         </script>
     </body>
