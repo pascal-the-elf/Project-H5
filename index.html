@@ -243,18 +243,20 @@
                              }
                          };
         var viewer = pannellum.viewer("panorama", SCENES);
-        viewer.on("load",()=>{fadeIn()});
-        if(viewer.isOrientationSupported())
-        viewer.startOrientation();
-        function sceneTo(x, p=0, y=0) {
-            fadeOut();
-            setTimeout(()=>{
-                       viewer.loadScene(x);
-                       viewer.setPitch(p, 0);
-                       viewer.setYaw(y, 0);
-                       oneperson.style.zIndex = "2";
-                       }, 1000);
-        }
+        viewer.on("load",()=>{
+                  fadeIn();
+                  if(viewer.isOrientationSupported())
+                  viewer.startOrientation();
+                  });
+                  function sceneTo(x, p=0, y=0) {
+                      fadeOut();
+                      setTimeout(()=>{
+                                 viewer.loadScene(x);
+                                 viewer.setPitch(p, 0);
+                                 viewer.setYaw(y, 0);
+                                 oneperson.style.zIndex = "2";
+                                 }, 1000);
+                  }
         function pic360(x) {
             return (mobile ? "https://pascal-the-elf.github.io/Project-H5/360/"+x+"_low.jpg" : "https://pascal-the-elf.github.io/Project-H5/360/"+x+"_high.jpg");
         }
