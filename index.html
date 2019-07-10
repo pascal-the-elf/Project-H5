@@ -86,7 +86,7 @@
             left: 1rem;
         }
         #FADE {
-            z-index: 9999;
+            z-index: 200;
             position: fixed;
             top: 0;
             left: 0;
@@ -105,6 +105,18 @@
             animation-duration: 1.5s;
             animation-fill-mode: forwards;
         }
+        #text-loading {
+            z-index: 201;
+            color: white;
+            font-size: 2rem;
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            animation-name: ani-text-loading;
+            animation-duration: 4s;
+            animation-iteration-count: infinite;
+            display: none;
+        }
         @keyframes ani-fade-out {
             from {
                 background-color: rgba(0, 0, 0, 0);
@@ -122,9 +134,27 @@
                 background-color: rgba(0, 0, 0, 0);
             }
         }
+        @keyframes ani-text-loading {
+            0% {
+                content: "oooO";
+            }
+            25% {
+                content: "ooOo";
+            }
+            50% {
+                content: "oOoo";
+            }
+            75% {
+                content: "Oooo";
+            }
+            100% {
+                content: "oooO";
+            }
+        }
         </style>
     </head>
     <body>
+        <p id="text-loading"></p>
         <div id="FADE" class=""></div>
         <img id="image" src="https://i.ytimg.com/vi/AtGTot98UAo/maxresdefault.jpg"></img>
         <div id="container">
@@ -154,108 +184,115 @@
             oneperson.style.zIndex = "-1";
             var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             var CPs=[0,0,0,0,0,0,0,0,0,0], CHECKPOINT = 0;
-            var ITEMS = [
-                         {
-                         "title": "一張被油墨弄髒的紙",
-                         "content": '<img src="./res/doc1.jpg" style="max-width: 100%; max-height: 80vh;"></img>'
-                         },
-                         {
-                         "title": "",
-                         "content": '<iframe src="https://jacoblincool.gitbook.io/travel-in-forest/" style="min-width: 100%; min-height: 70vh; max-height: 80vh; border: 0;"></iframe>'
-                         }
-                         ];
-                         var SCENES = {
-                             "default": {
-                                 "firstScene": "1",
-                                 "showControls": false,
-                                 "autoLoad": true
-                             },
-                             
-                             "scenes": {
-                                 "1": {
-                                     "title": "小木屋房內",
-                                     "type": "equirectangular",
-                                     "panorama": pic360(1),
-                                     "pitch": -23,
-                                     "yaw": -44,
-                                     "hotSpots": [
-                                                  {
-                                                  "pitch": -23,
-                                                  "yaw": -44,
-                                                  "type": "info",
-                                                  "text": "一張被油墨弄髒的紙",
-                                                  "URL": 'javascript:showItem(1);updateCP(1);canLeaveHouse();'
-                                                  },
-                                                  {
-                                                  "pitch": -14,
-                                                  "yaw": -120,
-                                                  "type": "info",
-                                                  "text": "旅遊手冊",
-                                                  "URL": 'javascript:showItem(2);getBook();updateCP(2);canLeaveHouse();'
-                                                  }
-                                                  ]
-                                 },
-                                 "2": {
-                                     "title": "小木屋外",
-                                     "type": "equirectangular",
-                                     "panorama": pic360(2),
-                                     "hotSpots": [
-                                                  {
-                                                  "pitch": 2,
-                                                  "yaw": 20,
-                                                  "type": "scene",
-                                                  "text": "往此處走",
-                                                  "URL": "javascript:sceneTo(3)"
-                                                  },
-                                                  {
-                                                  "pitch": 4,
-                                                  "yaw": -62,
-                                                  "type": "scene",
-                                                  "text": "進入小木屋",
-                                                  "URL": "javascript:sceneTo(1, -23, -44)"
-                                                  }
-                                                  ]
-                                 },
-                                 "3": {
-                                     "title": "森林步道",
-                                     "type": "equirectangular",
-                                     "panorama": pic360(3),
-                                     "hotSpots": [
-                                                  {
-                                                  "pitch": -3,
-                                                  "yaw": 90,
-                                                  "type": "scene",
-                                                  "text": "往小木屋方向走",
-                                                  "sceneId": "2",
-                                                  "URL": "javascript:sceneTo(2, 4, -62)"
-                                                  },
-                                                  {
-                                                  "pitch": -5,
-                                                  "yaw": -97,
-                                                  "type": "scene",
-                                                  "text": "往森林深處走",
-                                                  "URL": "javascript:sceneTo(4)"
-                                                  }
-                                                  ]
-                                 },
-                                 "4": {
-                                     "title": "森林深處",
-                                     "type": "equirectangular",
-                                     "panorama": pic360(4),
-                                     "hotSpots": [
-                                                  {
-                                                  "pitch": 0,
-                                                  "yaw": 90,
-                                                  "type": "scene",
-                                                  "text": "往步道方向走",
-                                                  "URL": "javascript:sceneTo(3)"
-                                                  }
-                                                  ]
-                                 }
-                             }
-                         };
+            setInterval(()=>{
+                        document.getElementById("text-loading").innerHTML = "oooO";
+                        setTimeout(()=>{document.getElementById("text-loading").innerHTML = "ooOo";}, 250);
+                        setTimeout(()=>{document.getElementById("text-loading").innerHTML = "oOoo";}, 500);
+                        setTimeout(()=>{document.getElementById("text-loading").innerHTML = "Oooo";}, 750);
+                        }, 1000);
+                        var ITEMS = [
+                                     {
+                                     "title": "一張被油墨弄髒的紙",
+                                     "content": '<img src="./res/doc1.jpg" style="max-width: 100%; max-height: 80vh;"></img>'
+                                     },
+                                     {
+                                     "title": "",
+                                     "content": '<iframe src="https://jacoblincool.gitbook.io/travel-in-forest/" style="min-width: 100%; min-height: 70vh; max-height: 80vh; border: 0;"></iframe>'
+                                     }
+                                     ];
+                                     var SCENES = {
+                                         "default": {
+                                             "firstScene": "1",
+                                             "showControls": false,
+                                             "autoLoad": true
+                                         },
+                                         
+                                         "scenes": {
+                                             "1": {
+                                                 "title": "小木屋房內",
+                                                 "type": "equirectangular",
+                                                 "panorama": pic360(1),
+                                                 "pitch": -23,
+                                                 "yaw": -44,
+                                                 "hotSpots": [
+                                                              {
+                                                              "pitch": -23,
+                                                              "yaw": -44,
+                                                              "type": "info",
+                                                              "text": "一張被油墨弄髒的紙",
+                                                              "URL": 'javascript:showItem(1);updateCP(1);canLeaveHouse();'
+                                                              },
+                                                              {
+                                                              "pitch": -14,
+                                                              "yaw": -120,
+                                                              "type": "info",
+                                                              "text": "旅遊手冊",
+                                                              "URL": 'javascript:showItem(2);getBook();updateCP(2);canLeaveHouse();'
+                                                              }
+                                                              ]
+                                             },
+                                             "2": {
+                                                 "title": "小木屋外",
+                                                 "type": "equirectangular",
+                                                 "panorama": pic360(2),
+                                                 "hotSpots": [
+                                                              {
+                                                              "pitch": 2,
+                                                              "yaw": 20,
+                                                              "type": "scene",
+                                                              "text": "往此處走",
+                                                              "URL": "javascript:sceneTo(3)"
+                                                              },
+                                                              {
+                                                              "pitch": 4,
+                                                              "yaw": -62,
+                                                              "type": "scene",
+                                                              "text": "進入小木屋",
+                                                              "URL": "javascript:sceneTo(1, -23, -44)"
+                                                              }
+                                                              ]
+                                             },
+                                             "3": {
+                                                 "title": "森林步道",
+                                                 "type": "equirectangular",
+                                                 "panorama": pic360(3),
+                                                 "hotSpots": [
+                                                              {
+                                                              "pitch": -3,
+                                                              "yaw": 90,
+                                                              "type": "scene",
+                                                              "text": "往小木屋方向走",
+                                                              "sceneId": "2",
+                                                              "URL": "javascript:sceneTo(2, 4, -62)"
+                                                              },
+                                                              {
+                                                              "pitch": -5,
+                                                              "yaw": -97,
+                                                              "type": "scene",
+                                                              "text": "往森林深處走",
+                                                              "URL": "javascript:sceneTo(4)"
+                                                              }
+                                                              ]
+                                             },
+                                             "4": {
+                                                 "title": "森林深處",
+                                                 "type": "equirectangular",
+                                                 "panorama": pic360(4),
+                                                 "hotSpots": [
+                                                              {
+                                                              "pitch": 0,
+                                                              "yaw": 90,
+                                                              "type": "scene",
+                                                              "text": "往步道方向走",
+                                                              "URL": "javascript:sceneTo(3)"
+                                                              }
+                                                              ]
+                                             }
+                                         }
+                                     };
         var viewer = pannellum.viewer("panorama", SCENES);
         viewer.on("load",()=>{
+                  document.getElementById("text-loading").display = "none";
                   fadeIn();
                   if(viewer.isOrientationSupported()) {
                   document.getElementById("orientation").style.display = "block";
@@ -266,6 +303,7 @@
                   function sceneTo(x, p=0, y=0) {
                       fadeOut();
                       setTimeout(()=>{
+                                 document.getElementById("text-loading").display = "block";
                                  viewer.loadScene(x);
                                  viewer.setPitch(p, 0);
                                  viewer.setYaw(y, 0);
@@ -279,6 +317,13 @@
             document.getElementById("image").style.display = "none";
             document.getElementById("container").style.display = "none";
             sceneTo(1);
+            window.forceTEXT = 1;
+            setTimeout(()=>{sendText("我在哪？")}, 1000);
+            setTimeout(()=>{sendText("我怎麼會在這裡？")}, 4000);
+            setTimeout(()=>{sendText("喔～頭好痛～")}, 7000);
+            forceTEXT = 0;
+            setTimeout(()=>{sendText("這裡有什麼？")}, 10000);
+            setTimeout(()=>{Swal.fire("請四處觀察房間物品")}, 12000);
         }
         function showItem(x) {
             Swal.fire(
@@ -326,16 +371,23 @@
                 document.getElementById("orientation").classList.remove("w3-text-light-gray");
             }
         }
-        setInterval(()=>{
-                    if(viewer.isOrientationActive()) {
-                    document.getElementById("orientation").style.display = "block";
-                    orientation = false;
-                    toggleOrientation();
-                    } else {
-                    orientation = true;
-                    toggleOrientation();
-                    }
-                    }, 500);
-            </script>
+        
+        var d = document.getElementById("dialog");
+        var textContainer = d.firstElementChild;
+        d.addEventListener("mouseover", ()=>{
+                           if(!forceTEXT)
+                           clearInterval(window.textFade);
+                           });
+                           d.addEventListener("mouseout", ()=>{
+                                              if(!forceTEXT)
+                                              window.textFade = setTimeout(()=>{textContainer.innerHTML = "";d.style.display = "none";}, 5000);
+                                              });
+                                              function sendText(x) {
+                                                  d.style.display = "block";
+                                                  textContainer.innerHTML = x;
+                                                  if(!forceTEXT)
+                                                  window.textFade = setTimeout(()=>{textContainer.innerHTML = "";d.style.display = "none";}, 5000);
+                                              }
+        </script>
     </body>
 </html>
