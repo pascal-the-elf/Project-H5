@@ -139,7 +139,7 @@
             <i class="fas fa-book fa-5x w3-text-blue"></i>
         </div>
         <div id="orientation" onclick="toggleOrientation()">
-            <i class="fas fa-mobile-alt fa-5x w3-text-green"></i>
+            <i class="fas fa-mobile-alt fa-5x"></i>
         </div>
         <div id="dialog">
             <span></span>
@@ -317,9 +317,13 @@
             if(orientation) {
                 orientation = false;
                 viewer.stopOrientation();
+                document.getElementById("orientation").classList.remove("w3-text-green");
+                document.getElementById("orientation").classList.add("w3-text-light-gray");
             } else {
                 orientation = true;
                 viewer.startOrientation();
+                document.getElementById("orientation").classList.add("w3-text-green");
+                document.getElementById("orientation").classList.remove("w3-text-light-gray");
             }
         }
         </script>
