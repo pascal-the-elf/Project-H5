@@ -61,17 +61,21 @@
         </div>
         <div id="screen"></div>
         <div id="panorama"></div>
-        <script type="text/javascript" src="https://cdn.pannellum.org/2.4/pannellum.js" onload="document.getElementById('start').style.display = '';"></script>
+        <script type="text/javascript" src="https://cdn.pannellum.org/2.4/pannellum.js" onload="document.getElementById('start').style.display = ''"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8" async></script>
         <script>
             const oneperson = document.getElementById("panorama");
             oneperson.style.zIndex = "-1";
             var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            var CHECKPOINT = 0;
+            var CPs=[0,0,0,0,0,0,0,0,0,0], CHECKPOINT = 0;
             var ITEMS = [
                          {
                          "title": "一張被油墨弄髒的紙",
                          "content": '<img src="http://sc-dr.tw/news/104/10/10220104.jpg" style="max-width: 100%;"></img>'
+                         },
+                         {
+                         "title": "旅遊手冊",
+                         "content": '<iframe src="https://jacoblincool.gitbook.io/travel-in-forest/" style="width: 100%"'
                          }
                          ];
                          var SCENES = {
@@ -94,11 +98,17 @@
                                                   "yaw": -44,
                                                   "type": "info",
                                                   "text": "一張被油墨弄髒的紙",
-                                                  "URL": 'javascript:showItem(1);updateCP(1);viewer.addHotSpot({"pitch": -8,"yaw": 180,"type": "scene","text": "離開小木屋","URL": "javascript:if(CHECKPOINT>0) sceneTo(2, 4, -62); else Swal.fire(\'你好像漏掉了什麼？\');"});'
+                                                  "URL": 'javascript:showItem(1);updateCP(1);canLeaveHouse();'
+                                                  },
+                                                  {
+                                                  "pitch": -14,
+                                                  "yaw": -120,
+                                                  "type": "info",
+                                                  "text": "旅遊手冊",
+                                                  "URL": 'javascript:showItem(2);updateCP(2);getBook();canLeaveHouse();'
                                                   }
                                                   ]
                                  },
-                                 
                                  "2": {
                                      "title": "小木屋外",
                                      "type": "equirectangular",
@@ -121,6 +131,13 @@
                                                   "targetYaw": -44
                                                   }
                                                   ]
+                                 },
+                                 "3": {
+                                     "title": "森林中",
+                                     "type": "equirectangular",
+                                     "panorama": pic360(3),
+                                     "hotSpots": [
+                                     ]
                                  }
                              }
                          };
@@ -147,7 +164,14 @@
                       );
         }
         function updateCP(x) {
-            if(x > CHECKPOINT) CHECKPOINT = x;
+            if(!CPs[x]) {
+                CHECKPOINT++;
+                CPs[x] = 1;
+            }
+        }
+        function canLeaveHouse() {
+            if(CHECKPOINT >= 2)
+            viewer.addHotSpot({"pitch": -8,"yaw": 180,"type": "scene","text": "離開小木屋","URL": "javascript:if(CHECKPOINT>0) sceneTo(2, 4, -62);"});
         }
         </script>
     </body>
