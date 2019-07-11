@@ -174,7 +174,7 @@
                 </style>
     </head>
     <body>
-        <iframe id="rpg1" src="https://pascal-the-elf.github.io/Project-H5/rpg/1/" onload="setTimeout(()=>{this.contentWindow.watch("$gameVariables", ()=>{if($gameVariables[10])this.style.zIndex = "-100";});}, 10000)"></iframe>
+        <iframe id="rpg1" src="https://pascal-the-elf.github.io/Project-H5/rpg/1/" onload="setInterval(()=>{if(this.contentWindow.$gameSwitches[6])this.style.zIndex='-100';}, 2000)"></iframe>
         <iframe id="rpg2" src="https://pascal-the-elf.github.io/Project-H5/rpg/2/"></iframe>
         <audio src="./res/bgm.mp3" autoplay loop style="display: none;"></audio>
         <p id="text-loading"></p>
