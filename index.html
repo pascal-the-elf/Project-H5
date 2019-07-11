@@ -417,13 +417,25 @@
             forceTEXT = 0;
             setTimeout(()=>{sendText("來看看手冊好了")}, 6000);
             setTimeout(()=>{Swal.fire("查看手冊中的「傳說故事」")}, 9000);
-            
+            setTimeout(()=>{
+                       viewer.addHotSpot({"pitch": 0,"yaw": 0,"type": "scene","text": "繼續","URL": "javascript:toRPG2();"});
+                       }, 12000);
+                       
         }
         function toRPG1() {
             document.getElementById("rpg1").style.zIndex = 200;
             var ii = setInterval(()=>{
                                  if(document.getElementById("rpg1").contentWindow.$gameSwitches._data[6]) {
                                  document.getElementById("rpg1").style.zIndex='-100';
+                                 clearInterval(ii);
+                                 }
+                                 }, 2000);
+        }
+        function toRPG2() {
+            document.getElementById("rpg2").style.zIndex = 200;
+            var ii = setInterval(()=>{
+                                 if(document.getElementById("rpg2").contentWindow.$gameSwitches._data[6]) {
+                                 document.getElementById("rpg2").style.zIndex='-100';
                                  clearInterval(ii);
                                  }
                                  }, 2000);
