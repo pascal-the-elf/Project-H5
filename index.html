@@ -174,7 +174,7 @@
                 </style>
     </head>
     <body>
-        <iframe id="rpg1" src="https://pascal-the-elf.github.io/Project-H5/rpg/1/" onload="setInterval(()=>{if(this.contentWindow.$gameSwitches[6])this.style.zIndex='-100';}, 2000)"></iframe>
+        <iframe id="rpg1" src="https://pascal-the-elf.github.io/Project-H5/rpg/1/"></iframe>
         <iframe id="rpg2" src="https://pascal-the-elf.github.io/Project-H5/rpg/2/"></iframe>
         <audio src="./res/bgm.mp3" autoplay loop style="display: none;"></audio>
         <p id="text-loading"></p>
@@ -362,7 +362,7 @@
         }
         function canLeaveHouse() {
             if(CHECKPOINT >= 2)
-            viewer.addHotSpot({"pitch": -8,"yaw": 180,"type": "scene","text": "離開小木屋","URL": "javascript:if(CHECKPOINT>0) {sceneTo(2, 4, -62);}"});
+            viewer.addHotSpot({"pitch": -8,"yaw": 180,"type": "scene","text": "離開小木屋","URL": "javascript:if(CHECKPOINT>0) {toRPG1(); sceneTo(2, 4, -62);}"});
         }
         function getBook() {
             document.getElementById("orientation").style.right = "calc(10px + 5rem)";
@@ -418,6 +418,15 @@
             setTimeout(()=>{sendText("來看看手冊好了")}, 6000);
             setTimeout(()=>{Swal.fire("查看手冊中的「傳說故事」")}, 9000);
             
+        }
+        function toRPG1() {
+            document.getElementById("rpg1").style.zIndex = 200;
+            var ii = setInterval(()=>{
+                                 if(document.getElementById("rpg1").contentWindow.$gameSwitches._data[6]) {
+                                 document.getElementById("rpg1").style.zIndex='-100';
+                                 clearInterval(ii);
+                                 }
+                                 }, 2000);
         }
         </script>
     </body>
